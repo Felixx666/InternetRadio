@@ -8,6 +8,7 @@
 #include <thread>
 #include <chrono>
 #include "streamRadio.h"
+#include "display.h"
 
 #define BUTTON1_PIN 17
 #define LED_PIN 18
@@ -34,11 +35,10 @@ void signalHandler(int signal) {
 std::map<int, std::string> initChannels() {
   // Radio channels:
   std::map<int, std::string> channels;
-  channels[0] = "swr3";
-  channels[1] = "swr2";
-  channels[2] = "swr4";
-  channels[3] = "Radio Regenbogen";
-  channels[4] = "badenfm";
+  channels[0] = "SWR3";
+  channels[1] = "SWR2";
+  channels[2] = "Regenbogen";
+  channels[3] = "BadenFM";
   return channels;
 }
 
@@ -64,6 +64,10 @@ void streamWorker() {
 int main() {
   initSetup();
   signal(SIGINT, signalHandler);
+  Display display;
+  display.init();
+  display.clear();
+  display.printStringScaled(channels[channel], 0, 0, 2);
   std::cout << "Press Ctrl+C exit." << std::endl;
   radio.startStream(channels[channel]);
   while (running) {
@@ -73,6 +77,8 @@ int main() {
       radio.stopStream();
       delay(1000);
       radio.startStream(channels[channel]);
+      display.clear();
+      display.printStringScaled(channels[channel], 0, 0, 2);
     }
     std::cout << channels[channel] << std::endl;
     delay(100);

@@ -6,6 +6,7 @@
 #include <linux/i2c-dev.h>
 #include <cstring>
 
+#include "display.h"
 
 // OLED display dimensions
 constexpr int OLED_WIDTH = 128;
@@ -247,7 +248,8 @@ void drawCharScaled(int x, int y, char c, int scale) {
 
 // Print a scaled string on the display.
 // (x, y) is the top-left pixel of the first character.
-void printStringScaled(const std::string &str, int x, int y, int scale) {
+void Display::printStringScaled(const std::string &str, int x, int y,
+    int scale) {
   for (char c : str) {
     drawCharScaled(x, y, c, scale);
     // Advance x by (character width * scale + spacing).
@@ -258,6 +260,7 @@ void printStringScaled(const std::string &str, int x, int y, int scale) {
       break; // Stop if there's no more space.
     }
   }
+  updateDisplay(fd);
 }
 
 
@@ -266,29 +269,40 @@ void clearBuffer() {
   memset(buffer, 0, sizeof(buffer));
 }
 
+void Display::clear() {
+  for (int i = 0; i < OLED_WIDTH; ++i) {
+    for (int j = 0; j < OLED_PAGES; ++j) {
+      drawChar(i, j, ' ');
+    }
+  }
+  updateDisplay(fd);
+}
 
-int main() {
-  const char *i2cDevice = "/dev/i2c-1";
-  int fd = open(i2cDevice, O_RDWR);
+// Initialize display
+void Display::init() {
+  //const char *i2cDevice = "/dev/i2c-1";
+  fd = open(i2cDevice, O_RDWR);
   if (fd < 0) {
     std::cerr << "Error: Cant open " << i2cDevice << "\n";
-    return 1;
   }
   if (ioctl(fd, I2C_SLAVE, OLED_I2C_ADDR) < 0) {
     std::cerr << "Error: Could not set I2C address\n";
     close(fd);
-    return 1;
   }
 
   initOLED(fd);
   clearBuffer();
+}
+
+//int main() {
+//  initDisplay();
 
   // Print a simple string at (0, 0)
-  printStringScaled("Huhu!", 0, 0, 2);
+//  printStringScaled("Huhu!", 0, 0, 2);
 
-  updateDisplay(fd);
+//  updateDisplay(fd);
   // Keep the programm alive so you can see the diplay
-  sleep(5);
-  close(fd);
-  return 0;
-}
+//  sleep(5);
+//  close(fd);
+//  return 0;
+//}

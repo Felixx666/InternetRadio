@@ -8,16 +8,12 @@
 // Map channel names to their stream URLs.
 // (Adjust the URLs if necessary.)
 std::map<std::string, std::string> StreamRadio::channels = {
-  {"swr3", "http://liveradio.swr.de/sw282p3/swr3/play.mp3"},
-  {"swr2", "https://d111.rndfnk.com/ard/swr/swr2/live/mp3/256/stream."
+  {"SWR3", "http://liveradio.swr.de/sw282p3/swr3/play.mp3"},
+  {"SWR2", "https://d111.rndfnk.com/ard/swr/swr2/live/mp3/256/stream."
           "mp3?aggregator=web&cid=01FC1X4J91VJW1CVH6588MZEE3&sid=2snNflJdy3go"
           "aLzrK94kxMvazTH&token=KcRSFeR4yJ5fmFbsOwHpqp7xThh5F4rnpB-u_LtGoWk&"
           "tvf=KQsERX-OIhhkMTExLnJuZGZuay5jb20"},
-  {"swr4", "https://d111.rndfnk.com/ard/swr/swr4/bw/mp3/128/stream.mp3?"
-          "wqaggregator=web&cid=01FC1X86VT36Q01G4NBJ3Q4R1Z&sid=2snPMTN0eh505E"
-          "lgEuel4qapJp0&token=r6G_SlXyx8x1O5132_gfH5MdAHz98sbKVKGjtuqcVL0&tv"
-          "f=Ba5xa0GPIhhkMTExLnJuZGZ#uay5jb20"},
-  {"Radio Regenbogen", "https://audiotainment-sw.streamabc.net/atsw-reg"
+  {"Regenbogen", "https://audiotainment-sw.streamabc.net/atsw-reg"
           "enbogen1028-aac-128-7085277?sABC=67n86285%231%23s243103pr27n49q887"
           "10ro643s7ns0r3%23ubzrcntr&mode=preroll&aw_0_1st.skey=1739088499&cb"
           "=820968613&aw_0_req.userConsentV2=CQMj2AAQMj2AAAFADBDEBcFsAP_gAAAA"
@@ -29,7 +25,7 @@ std::map<std::string, std::string> StreamRadio::channels = {
           "_1st.playerid=regenbogen_web&aw_0_1st.1plusxAudience=3u,2j,o&liste"
           "nerid=f243103ce27a49d88710eb643f7af0e3&metaid=f243103ce27a49d88710"
           "eb643f7af0e3&amsparams=playerid:homepage;skey:173908851wq7"},
-  {"badenfm", "https://edge60.streams.baden.fm/badenfm-onair?aggregaqtor"
+  {"BadenFM", "https://edge60.streams.baden.fm/badenfm-onair?aggregaqtor"
           "//=badenfm_konsole"},
 };
 
